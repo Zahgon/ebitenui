@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"embed"
 	"image"
 	"image/color"
@@ -13,9 +12,7 @@ import (
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
 
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 //go:embed assets
@@ -128,85 +125,35 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
 	return nil
 }
 
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
-func loadButtonImage() (*widget.ButtonImage, error) {
-	idle := e_image.NewNineSliceColor(color.NRGBA{R: 170, G: 170, B: 180, A: 255})
-
-	hover := e_image.NewNineSliceColor(color.NRGBA{R: 130, G: 130, B: 150, A: 255})
-
-	pressed := e_image.NewNineSliceColor(color.NRGBA{R: 100, G: 100, B: 120, A: 255})
-
-	return &widget.ButtonImage{
-		Idle:    idle,
-		Hover:   hover,
-		Pressed: pressed,
-	}, nil
-}
+func loadButtonImage() (*widget.ButtonImage, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }
 
-func loadNormalCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(0, 0, 16, 16)))
-}
+func loadNormalCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }
 
-func loadNSCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(0, 16, 16, 32)))
-}
+func loadNSCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }
 
-func loadHoverCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(16, 0, 32, 16)))
-}
+func loadHoverCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }
 
-func loadPressedCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(32, 0, 48, 16)))
-}
+func loadPressedCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }

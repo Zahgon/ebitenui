@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"image/color"
 	"log"
@@ -11,7 +10,6 @@ import (
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // Game object used by ebiten,
@@ -137,31 +135,25 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
 	return nil
 }
 
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

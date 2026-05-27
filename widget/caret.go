@@ -32,112 +32,37 @@ var CaretOpts CaretOptions
 
 type caretBlinkState func() caretBlinkState
 
-func NewCaret(opts ...CaretOpt) *Caret {
-	c := &Caret{
-		blinkInterval: 450 * time.Millisecond,
+func NewCaret(opts ...CaretOpt) *Caret { _ = "STUB: not implemented"; return nil }
 
-		init: &MultiOnce{},
-	}
-	c.resetBlinking()
-
-	c.init.Append(c.createWidget)
-
-	for _, o := range opts {
-		o(c)
-	}
-
-	return c
-}
-
-func (c *Caret) Validate() {
-
-}
+func (c *Caret) Validate() { _ = "STUB: not implemented"; return }
 
 func (o CaretOptions) Color(c color.Color) CaretOpt {
-	return func(ca *Caret) {
-		ca.Color = c
-	}
+	_ = "STUB: not implemented"
+	return *new(CaretOpt)
 }
 
 func (o CaretOptions) Size(height int, width int) CaretOpt {
-	return func(c *Caret) {
-		c.Height = height
-		c.Width = width
-	}
+	_ = "STUB: not implemented"
+	return *new(CaretOpt)
 }
 
-func (c *Caret) GetWidget() *Widget {
-	c.init.Do()
-	return c.widget
-}
+func (c *Caret) GetWidget() *Widget { _ = "STUB: not implemented"; return nil }
 
-func (c *Caret) SetLocation(rect img.Rectangle) {
-	c.init.Do()
-	c.widget.Rect = rect
-}
+func (c *Caret) SetLocation(rect img.Rectangle) { _ = "STUB: not implemented"; return }
 
-func (c *Caret) PreferredSize() (int, int) {
-	c.init.Do()
-	return c.Width, c.Height
-}
+func (c *Caret) PreferredSize() (int, int) { _ = "STUB: not implemented"; return 0, 0 }
 
-func (c *Caret) Render(screen *ebiten.Image) {
-	c.init.Do()
+func (c *Caret) Render(screen *ebiten.Image) { _ = "STUB: not implemented"; return }
 
-	c.state = c.state()
+func (c *Caret) Update(updObj *UpdateObject) { _ = "STUB: not implemented"; return }
 
-	c.widget.Render(screen)
+func (c *Caret) ResetBlinking() { _ = "STUB: not implemented"; return }
 
-	if !c.visible {
-		return
-	}
-
-	c.image = image.NewNineSliceColor(c.Color)
-
-	c.image.Draw(screen, c.Width, c.Height, func(opts *ebiten.DrawImageOptions) {
-		p := c.widget.Rect.Min
-		opts.GeoM.Translate(float64(p.X), float64(p.Y))
-	})
-}
-
-func (c *Caret) Update(updObj *UpdateObject) {
-	c.init.Do()
-
-	c.widget.Update(updObj)
-}
-
-func (c *Caret) ResetBlinking() {
-	c.init.Do()
-	c.resetBlinking()
-}
-
-func (c *Caret) resetBlinking() {
-	c.state = c.blinkState(true, nil, nil)
-}
+func (c *Caret) resetBlinking() { _ = "STUB: not implemented"; return }
 
 func (c *Caret) blinkState(visible bool, timer *time.Timer, expired *atomic.Value) caretBlinkState {
-	return func() caretBlinkState {
-		c.visible = visible
-
-		if timer != nil {
-			if isExpired, _ := expired.Load().(bool); isExpired {
-				return c.blinkState(!visible, nil, nil)
-			}
-		}
-
-		if timer == nil {
-			expired = &atomic.Value{}
-			expired.Store(false)
-
-			timer = time.AfterFunc(c.blinkInterval, func() {
-				expired.Store(true)
-			})
-		}
-
-		return c.blinkState(visible, timer, expired)
-	}
+	_ = "STUB: not implemented"
+	return *new(caretBlinkState)
 }
 
-func (c *Caret) createWidget() {
-	c.widget = NewWidget()
-}
+func (c *Caret) createWidget() { _ = "STUB: not implemented"; return }

@@ -40,106 +40,36 @@ type RadioGroupChangedHandlerFunc func(args *RadioGroupChangedEventArgs)
 
 var RadioGroupOpts RadioGroupOptions
 
-func NewRadioGroup(opts ...RadioGroupOpt) *RadioGroup {
-	r := &RadioGroup{
-		ChangedEvent: &event.Event{},
+func NewRadioGroup(opts ...RadioGroupOpt) *RadioGroup { _ = "STUB: not implemented"; return nil }
 
-		listen:    true,
-		doneEvent: &event.Event{},
-	}
-
-	for _, o := range opts {
-		o(r)
-	}
-
-	// use deferred event to initialize
-	e := &event.Event{}
-	event.AddEventHandlerOneShot(e, func(_ interface{}) {
-		r.create()
-	})
-	e.Fire(nil)
-
-	return r
-}
+// use deferred event to initialize
 
 func (o RadioGroupOptions) Elements(e ...RadioGroupElement) RadioGroupOpt {
-	return func(r *RadioGroup) {
-		for idx := range e {
-			if eletype, ok := e[idx].(*Button); ok {
-				eletype.ToggleMode = true
-			}
-		}
-		r.elements = e
-	}
+	_ = "STUB: not implemented"
+	return *new(RadioGroupOpt)
 }
 
 func (o RadioGroupOptions) ChangedHandler(f RadioGroupChangedHandlerFunc) RadioGroupOpt {
-	return func(r *RadioGroup) {
-		r.ChangedEvent.AddHandler(func(args interface{}) {
-			if arg, ok := args.(*RadioGroupChangedEventArgs); ok {
-				f(arg)
-			}
-		})
-	}
+	_ = "STUB: not implemented"
+	return *new(RadioGroupOpt)
 }
 
 // This function allows you to select which element should be selected initialially.
 // Otherwise it will select the first element in the Elements array.
 func (o RadioGroupOptions) InitialElement(e RadioGroupElement) RadioGroupOpt {
-	return func(r *RadioGroup) {
-		r.initial = e
-	}
+	_ = "STUB: not implemented"
+	return *new(RadioGroupOpt)
 }
 
 func (r *RadioGroup) Active() RadioGroupElement {
-	return r.active
+	_ = "STUB: not implemented"
+	return *new(RadioGroupElement)
 }
 
-func (r *RadioGroup) SetActive(a RadioGroupElement) {
-	r.listen = false
-	oldActive := r.active
-	for _, c := range r.elements {
-		if c == a {
-			r.active = c
+func (r *RadioGroup) SetActive(a RadioGroupElement) { _ = "STUB: not implemented"; return }
 
-			// ignore unchecking and reset to checked
-			c.SetState(WidgetChecked)
-		} else {
-			c.SetState(WidgetUnchecked)
-		}
-	}
+// ignore unchecking and reset to checked
 
-	// SetState() fires deferred events, so we need something *after* those to tell us we should listen again
-	event.AddEventHandlerOneShot(r.doneEvent, func(_ interface{}) {
-		r.listen = true
-	})
-	r.doneEvent.Fire(nil)
+// SetState() fires deferred events, so we need something *after* those to tell us we should listen again
 
-	if a != oldActive {
-		r.ChangedEvent.Fire(&RadioGroupChangedEventArgs{
-			Active: a,
-		})
-	}
-}
-
-func (r *RadioGroup) create() {
-	for _, c := range r.elements {
-		c.getStateChangedEvent().AddHandler(func(args interface{}) {
-			if !r.listen {
-				return
-			}
-			switch args := args.(type) {
-			case *CheckboxChangedEventArgs:
-				r.SetActive(args.Active)
-			case *ButtonChangedEventArgs:
-				r.SetActive(args.Button)
-			}
-		})
-	}
-
-	if r.initial != nil {
-		r.SetActive(r.initial)
-	} else if len(r.elements) > 0 {
-		r.SetActive(r.elements[0])
-	}
-}
+func (r *RadioGroup) create() { _ = "STUB: not implemented"; return }

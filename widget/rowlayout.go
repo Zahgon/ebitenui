@@ -53,149 +53,62 @@ const (
 var RowLayoutOpts RowLayoutOptions
 
 // NewRowLayout constructs a new RowLayout, configured by opts.
-func NewRowLayout(opts ...RowLayoutOpt) *RowLayout {
-	r := &RowLayout{}
-
-	for _, o := range opts {
-		o(r)
-	}
-	if r.padding == nil {
-		r.padding = &Insets{}
-	}
-
-	return r
-}
+func NewRowLayout(opts ...RowLayoutOpt) *RowLayout { _ = "STUB: not implemented"; return nil }
 
 // Direction configures a row layout to layout widgets in the primary direction d. This will also switch the meaning
 // of any widget's RowLayoutData.Position and RowLayoutData.Stretch to the other direction.
 func (o RowLayoutOptions) Direction(d Direction) RowLayoutOpt {
-	return func(r *RowLayout) {
-		r.direction = d
-	}
+	_ = "STUB: not implemented"
+	return *new(RowLayoutOpt)
 }
 
 // Padding configures a row layout to use padding i.
 func (o RowLayoutOptions) Padding(i *Insets) RowLayoutOpt {
-	return func(r *RowLayout) {
-		r.padding = i
-	}
+	_ = "STUB: not implemented"
+	return *new(RowLayoutOpt)
 }
 
 // Spacing configures a row layout to separate widgets by spacing s.
 func (o RowLayoutOptions) Spacing(s int) RowLayoutOpt {
-	return func(f *RowLayout) {
-		f.spacing = s
-	}
+	_ = "STUB: not implemented"
+	return *new(RowLayoutOpt)
 }
 
 // PreferredSize implements Layouter.
 func (r *RowLayout) PreferredSize(widgets []PreferredSizeLocateableWidget) (int, int) {
-	rect := image.Rectangle{}
-	r.layout(widgets, image.Rectangle{}, false, func(_ PreferredSizeLocateableWidget, wr image.Rectangle) {
-		rect = rect.Union(wr)
-	})
-	return rect.Dx() + r.padding.Dx(), rect.Dy() + r.padding.Dy()
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Layout implements Layouter.
 func (r *RowLayout) Layout(widgets []PreferredSizeLocateableWidget, rect image.Rectangle) {
-	r.layout(widgets, rect, true, func(w PreferredSizeLocateableWidget, wr image.Rectangle) {
-		w.SetLocation(wr)
-	})
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *RowLayout) layout(widgets []PreferredSizeLocateableWidget, rect image.Rectangle, usePosition bool, locationFunc func(w PreferredSizeLocateableWidget, wr image.Rectangle)) {
-	if len(widgets) == 0 {
-		return
-	}
-
-	rect = r.padding.Apply(rect)
-	x, y := 0, 0
-
-	for _, widget := range widgets {
-		if widget.GetWidget().GetVisibility() == Visibility_Hide {
-			continue
-		}
-
-		wx, wy := x, y
-		ww, wh := widget.PreferredSize()
-
-		ld := widget.GetWidget().LayoutData
-		if rld, ok := ld.(RowLayoutData); ok {
-			wx, wy, ww, wh = r.applyLayoutData(rld, wx, wy, ww, wh, usePosition, rect, x, y)
-		}
-
-		wr := image.Rect(0, 0, ww, wh)
-		wr = wr.Add(rect.Min)
-		wr = wr.Add(image.Point{wx, wy})
-		locationFunc(widget, wr)
-
-		if r.direction == DirectionHorizontal {
-			x += ww + r.spacing
-		} else {
-			y += wh + r.spacing
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *RowLayout) applyLayoutData(ld RowLayoutData, wx int, wy int, ww int, wh int, usePosition bool, rect image.Rectangle, x int, y int) (int, int, int, int) {
-	if usePosition {
-		ww, wh = r.applyStretch(ld, ww, wh, rect)
-	}
-
-	ww, wh = r.applyMaxSize(ld, ww, wh)
-
-	if usePosition {
-		wx, wy = r.applyPosition(ld, wx, wy, ww, wh, rect, x, y)
-	}
-
-	return wx, wy, ww, wh
+	_ = "STUB: not implemented"
+	return 0, 0, 0, 0
 }
 
 func (r *RowLayout) applyStretch(ld RowLayoutData, ww int, wh int, rect image.Rectangle) (int, int) {
-	if !ld.Stretch {
-		return ww, wh
-	}
-
-	if r.direction == DirectionHorizontal {
-		wh = rect.Dy()
-	} else {
-		ww = rect.Dx()
-	}
-
-	return ww, wh
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 func (r *RowLayout) applyMaxSize(ld RowLayoutData, ww int, wh int) (int, int) {
-	if ld.MaxWidth > 0 && ww > ld.MaxWidth {
-		ww = ld.MaxWidth
-	}
-
-	if ld.MaxHeight > 0 && wh > ld.MaxHeight {
-		wh = ld.MaxHeight
-	}
-
-	return ww, wh
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 func (r *RowLayout) applyPosition(ld RowLayoutData, wx int, wy int, ww int, wh int, rect image.Rectangle, x int, y int) (int, int) {
-	switch ld.Position {
-	case RowLayoutPositionCenter:
-		if r.direction == DirectionHorizontal {
-			wy = y + (rect.Dy()-wh)/2
-		} else {
-			wx = x + (rect.Dx()-ww)/2
-		}
-
-	case RowLayoutPositionEnd:
-		if r.direction == DirectionHorizontal {
-			wy = y + rect.Dy() - wh
-		} else {
-			wx = x + rect.Dx() - ww
-		}
-	case RowLayoutPositionStart:
-		// Do Nothing
-	}
-
-	return wx, wy
+	_ = "STUB: not implemented"
+	return 0, 0
 }
+
+// Do Nothing

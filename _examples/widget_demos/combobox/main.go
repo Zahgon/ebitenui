@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	i "image"
 	"image/color"
@@ -12,9 +11,7 @@ import (
 	"github.com/ebitenui/ebitenui/utilities/constantutil"
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // Game object used by ebiten
@@ -144,57 +141,29 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
-
-	if list, ok := g.ui.GetFocusedWidget().(*widget.ListComboButton); ok {
-		//Test that you can call Click on the focused widget.
-		if inpututil.IsKeyJustPressed(ebiten.KeyW) {
-			list.FocusPrevious()
-		} else if inpututil.IsKeyJustPressed(ebiten.KeyS) {
-			list.FocusNext()
-		} else if inpututil.IsKeyJustPressed(ebiten.KeyB) {
-			list.SelectFocused()
-		}
-	}
 	return nil
 }
 
+//Test that you can call Click on the focused widget.
+
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
-
+	return
 }
 
-func loadButtonImage() (*widget.ButtonImage, error) {
-	idle := image.NewNineSliceColor(color.NRGBA{R: 170, G: 170, B: 180, A: 255})
-
-	hover := image.NewNineSliceColor(color.NRGBA{R: 130, G: 130, B: 150, A: 255})
-
-	pressed := image.NewNineSliceColor(color.NRGBA{R: 100, G: 100, B: 120, A: 255})
-
-	return &widget.ButtonImage{
-		Idle:    idle,
-		Hover:   hover,
-		Pressed: pressed,
-	}, nil
-}
+func loadButtonImage() (*widget.ButtonImage, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

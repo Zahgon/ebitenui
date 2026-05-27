@@ -5,22 +5,16 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"image/color"
 	"log"
-	"sync"
-	"syscall/js"
 
 	"github.com/ebitenui/ebitenui"
 	"github.com/ebitenui/ebitenui/image"
-	"github.com/ebitenui/ebitenui/input"
 	"github.com/ebitenui/ebitenui/internal/jsUtil"
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // Game object used by ebiten.
@@ -120,81 +114,33 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
-func (g *game) Update() error {
-	if input.KeyPressed(ebiten.KeyControlLeft) && inpututil.IsKeyJustPressed(ebiten.KeyA) {
-		g.standardTextInput.SelectAll()
-	}
-	g.HandleCCPJS()
-
-	g.ui.Update()
-	return nil
-}
+func (g *game) Update() error { _ = "STUB: not implemented"; return nil }
 
 func (g *game) HandleCCPJS() {
+	_ = "STUB: not implemented"
 	// Copy
-	if ebiten.IsKeyPressed(ebiten.KeyControlLeft) && inpututil.IsKeyJustPressed(ebiten.KeyC) {
-		text := g.standardTextInput.SelectedText()
-		if len(text) > 0 {
-			js.Global().Get("navigator").Get("clipboard").Call("writeText", text)
-		}
-	}
-
-	// Cut
-	if ebiten.IsKeyPressed(ebiten.KeyControlLeft) && inpututil.IsKeyJustPressed(ebiten.KeyX) {
-		text := g.standardTextInput.SelectedText()
-		if len(text) > 0 {
-			js.Global().Get("navigator").Get("clipboard").Call("writeText", text)
-			g.standardTextInput.DeleteSelectedText()
-		}
-	}
-
-	// Paste
-	if ebiten.IsKeyPressed(ebiten.KeyControlLeft) && inpututil.IsKeyJustPressed(ebiten.KeyV) {
-		var wg sync.WaitGroup
-		wg.Add(1)
-		var result string
-		promise := js.Global().Get("navigator").Get("clipboard").Call("readText").Call("then", js.FuncOf(func(me js.Value, args []js.Value) interface{} {
-			result = args[0].String()
-			wg.Done()
-			return nil
-		}), js.FuncOf(func(me js.Value, args []js.Value) interface{} {
-			wg.Done()
-			return nil
-		}))
-
-		if !promise.Truthy() {
-			return
-		}
-
-		// Wait for promise to resolve
-		wg.Wait()
-
-		if len(result) > 0 {
-			g.standardTextInput.Insert(result)
-		}
-	}
-
+	return
 }
+
+// Cut
+
+// Paste
+
+// Wait for promise to resolve
 
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

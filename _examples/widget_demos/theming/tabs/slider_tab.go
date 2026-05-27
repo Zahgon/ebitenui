@@ -1,44 +1,23 @@
 package tabs
 
 import (
-	"fmt"
-
 	"github.com/ebitenui/ebitenui/widget"
 )
 
-func NewSliderTab() *widget.TabBookTab {
-	result := widget.NewTabBookTab(
-		widget.TabBookTabOpts.Label("Slider"),
-		widget.TabBookTabOpts.ContainerOpts(
-			widget.ContainerOpts.Layout(widget.NewAnchorLayout()),
-		),
-	)
+func NewSliderTab() *widget.TabBookTab { _ = "STUB: not implemented"; return nil }
 
-	// construct a slider
-	slider := widget.NewSlider(
-		widget.SliderOpts.WidgetOpts(
-			// Set the Widget to layout in the center on the screen
-			widget.WidgetOpts.LayoutData(widget.AnchorLayoutData{
-				HorizontalPosition: widget.AnchorLayoutPositionCenter,
-				VerticalPosition:   widget.AnchorLayoutPositionCenter,
-			}),
-			// Set the widget's dimensions
-			widget.WidgetOpts.MinSize(6, 200),
-		),
-		// Set the slider orientation - n/s vs e/w
-		widget.SliderOpts.Orientation(widget.DirectionVertical),
-		// Set the minimum and maximum value for the slider
-		widget.SliderOpts.MinMax(0, 10),
-		// Set the current value of the slider, without triggering a change event
-		widget.SliderOpts.InitialCurrent(5),
+// construct a slider
 
-		// Set the callback to call when the slider value is changed
-		widget.SliderOpts.ChangedHandler(func(args *widget.SliderChangedEventArgs) {
-			fmt.Println(args.Current, "dragging", args.Dragging)
-		}),
-	)
-	// add the slider as a child of the container
-	result.AddChild(slider)
+// Set the Widget to layout in the center on the screen
 
-	return result
-}
+// Set the widget's dimensions
+
+// Set the slider orientation - n/s vs e/w
+
+// Set the minimum and maximum value for the slider
+
+// Set the current value of the slider, without triggering a change event
+
+// Set the callback to call when the slider value is changed
+
+// add the slider as a child of the container

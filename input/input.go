@@ -61,12 +61,7 @@ var windowSize image.Point
 //	CURSOR_POINTER   : "Cursor_Pointer"
 //	CURSOR_TEXT      : "Cursor_Text"
 //	CURSOR_CROSSHAIR : "Cursor_Crosshair"
-func SetCursorUpdater(cursorUpdater CursorUpdater) {
-	if cursorUpdater == nil {
-		cursorUpdater = internalinput.InputHandler
-	}
-	currentCursorUpdater = cursorUpdater
-}
+func SetCursorUpdater(cursorUpdater CursorUpdater) { _ = "STUB: not implemented"; return }
 
 const (
 	CURSOR_DEFAULT   = "Cursor_Default"
@@ -80,181 +75,84 @@ const (
 
 var currentCursor string = CURSOR_DEFAULT
 
-func SetCursorShape(name string) {
-	currentCursor = name
-}
+func SetCursorShape(name string) { _ = "STUB: not implemented"; return }
 
-func SetCursorImage(name string, cursorImage *ebiten.Image) {
-	internalinput.InputHandler.SetCursorImage(name, cursorImage, image.Point{})
-}
+func SetCursorImage(name string, cursorImage *ebiten.Image) { _ = "STUB: not implemented"; return }
 
 func SetCursorImageWithOffset(name string, cursorImage *ebiten.Image, offset image.Point) {
-	internalinput.InputHandler.SetCursorImage(name, cursorImage, offset)
+	_ = "STUB: not implemented"
+	return
 }
 
 // MouseButtonPressed returns whether mouse button b is currently pressed.
-func MouseButtonPressed(b ebiten.MouseButton) bool {
-	return currentCursorUpdater.MouseButtonPressed(b)
-}
+func MouseButtonPressed(b ebiten.MouseButton) bool { _ = "STUB: not implemented"; return false }
 
 // MouseButtonJustPressed returns whether mouse button b has just been pressed.
 // It only returns true during the first frame that the button is pressed.
-func MouseButtonJustPressed(b ebiten.MouseButton) bool {
-	return currentCursorUpdater.MouseButtonJustPressed(b)
-}
+func MouseButtonJustPressed(b ebiten.MouseButton) bool { _ = "STUB: not implemented"; return false }
 
 // MouseButtonJustPressed returns whether mouse button b has just been pressed.
 // It only returns true during the first frame that the button is pressed.
-func MouseButtonJustReleased(b ebiten.MouseButton) bool {
-	return currentCursorUpdater.MouseButtonJustReleased(b)
-}
+func MouseButtonJustReleased(b ebiten.MouseButton) bool { _ = "STUB: not implemented"; return false }
 
 // MouseButtonPressedLayer returns whether mouse button b is currently pressed if input layer l is
 // eligible to handle it.
 func MouseButtonPressedLayer(b ebiten.MouseButton, l *Layer) bool {
-	if !MouseButtonPressed(b) {
-		return false
-	}
-
-	x, y := CursorPosition()
-	return l.ActiveFor(x, y, LayerEventTypeMouseButton)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // MouseButtonJustPressedLayer returns whether mouse button b has just been pressed if input layer l
 // is eligible to handle it. It only returns true during the first frame that the button is pressed.
 func MouseButtonJustPressedLayer(b ebiten.MouseButton, l *Layer) bool {
-	if !MouseButtonJustPressed(b) {
-		return false
-	}
-
-	x, y := CursorPosition()
-	return l.ActiveFor(x, y, LayerEventTypeMouseButton)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // MouseButtonJustPressedLayer returns whether mouse button b has just been pressed if input layer l
 // is eligible to handle it. It only returns true during the first frame that the button is pressed.
 func MouseButtonJustReleasedLayer(b ebiten.MouseButton, l *Layer) bool {
-	if !MouseButtonJustReleased(b) {
-		return false
-	}
-
-	x, y := CursorPosition()
-	return l.ActiveFor(x, y, LayerEventTypeMouseButton)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // CursorPosition returns the current cursor position.
-func CursorPosition() (int, int) {
-	return currentCursorUpdater.CursorPosition()
-}
+func CursorPosition() (int, int) { _ = "STUB: not implemented"; return 0, 0 }
 
 // Wheel returns current mouse wheel movement.
-func Wheel() (float64, float64) {
-	return internalinput.InputHandler.WheelX, internalinput.InputHandler.WheelY
-}
+func Wheel() (float64, float64) { _ = "STUB: not implemented"; return 0, 0 }
 
 // WheelLayer returns current mouse wheel movement if input layer l is eligible to handle it.
 // If l is not eligible, it returns 0, 0.
-func WheelLayer(l *Layer) (float64, float64) {
-	x, y := Wheel()
-	if x == 0 && y == 0 {
-		return 0, 0
-	}
-
-	cx, cy := CursorPosition()
-	if !l.ActiveFor(cx, cy, LayerEventTypeWheel) {
-		return 0, 0
-	}
-
-	return x, y
-}
+func WheelLayer(l *Layer) (float64, float64) { _ = "STUB: not implemented"; return 0, 0 }
 
 // InputChars returns user keyboard input.
-func InputChars() []rune { //nolint:golint
-	return internalinput.InputHandler.InputChars
+func InputChars() []rune {
+	_ = "STUB: not implemented" //nolint:golint
+	return nil
 }
 
 // KeyPressed returns whether key k is currently pressed.
-func KeyPressed(k ebiten.Key) bool {
-	p, ok := internalinput.InputHandler.KeyPressed[k]
-	return ok && p
-}
+func KeyPressed(k ebiten.Key) bool { _ = "STUB: not implemented"; return false }
 
 // AnyKeyPressed returns whether any key is currently pressed.
-func AnyKeyPressed() bool {
-	return internalinput.InputHandler.AnyKeyPressed
-}
+func AnyKeyPressed() bool { _ = "STUB: not implemented"; return false }
 
 // This method returns the drawable screen size whether it is fullscreen or not.
-func GetWindowSize() image.Point {
-	return windowSize
-}
+func GetWindowSize() image.Point { _ = "STUB: not implemented"; return *new(image.Point) }
 
-func Update() {
-	SetCursorShape(CURSOR_DEFAULT)
-	currentCursorUpdater.Update()
-	if currentCursorUpdater != internalinput.InputHandler {
-		internalinput.InputHandler.Update()
-	}
-	internalinput.InternalUIHovered = false
-}
+func Update() { _ = "STUB: not implemented"; return }
 
-func AfterUpdate() {
-	currentCursorUpdater.AfterUpdate()
-	if currentCursorUpdater != internalinput.InputHandler {
-		internalinput.InputHandler.AfterUpdate()
-	}
-}
+func AfterUpdate() { _ = "STUB: not implemented"; return }
 
-func Draw(screen *ebiten.Image) {
-	windowSize = screen.Bounds().Max
-	currentCursorUpdater.Draw(screen)
-}
+func Draw(screen *ebiten.Image) { _ = "STUB: not implemented"; return }
 
-func AfterDraw(screen *ebiten.Image) {
-	currentCursorUpdater.AfterDraw(screen)
-	UIHovered = internalinput.InternalUIHovered
-	if CursorManagementEnabled {
-		// Process Cursor
-		posX, posY := currentCursorUpdater.CursorPosition()
-		//If cursor outside the window do nothing
-		if posX < 0 || posY < 0 || posX > windowSize.X || posY > windowSize.Y {
-			return
-		}
-		cursorImage := currentCursorUpdater.GetCursorImage(currentCursor)
-		// If we have a cursor image hide current cursor and use it
-		if cursorImage != nil {
-			if ebiten.CursorMode() != ebiten.CursorModeHidden {
-				ebiten.SetCursorMode(ebiten.CursorModeHidden)
-			}
-			cursorOffset := currentCursorUpdater.GetCursorOffset(currentCursor)
-			op := &ebiten.DrawImageOptions{}
-			op.GeoM.Translate(float64(posX+cursorOffset.X), float64(posY+cursorOffset.Y))
-			screen.DrawImage(cursorImage, op)
-			// If we don't have an image use the system shapes.
-		} else {
-			cursorMode := ebiten.CursorModeVisible
-			switch currentCursor {
-			case CURSOR_DEFAULT:
-				ebiten.SetCursorShape(ebiten.CursorShapeDefault)
-			case CURSOR_EWRESIZE:
-				ebiten.SetCursorShape(ebiten.CursorShapeEWResize)
-			case CURSOR_NSRESIZE:
-				ebiten.SetCursorShape(ebiten.CursorShapeNSResize)
-			case CURSOR_TEXT:
-				ebiten.SetCursorShape(ebiten.CursorShapeText)
-			case CURSOR_CROSSHAIR:
-				ebiten.SetCursorShape(ebiten.CursorShapeCrosshair)
-			case CURSOR_POINTER:
-				ebiten.SetCursorShape(ebiten.CursorShapePointer)
-			case CURSOR_NONE:
-				cursorMode = ebiten.CursorModeHidden
-			default:
-				ebiten.SetCursorShape(ebiten.CursorShapeDefault)
-			}
-			if ebiten.CursorMode() != cursorMode {
-				ebiten.SetCursorMode(cursorMode)
-			}
+func AfterDraw(screen *ebiten.Image) { _ = "STUB: not implemented"; return }
 
-		}
-	}
-}
+// Process Cursor
+
+//If cursor outside the window do nothing
+
+// If we have a cursor image hide current cursor and use it
+
+// If we don't have an image use the system shapes.

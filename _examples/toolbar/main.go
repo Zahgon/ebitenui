@@ -1,15 +1,13 @@
 package main
 
 import (
-	"bytes"
+	"log"
+
 	"github.com/ebitenui/ebitenui"
-	"github.com/ebitenui/ebitenui/widget"
 	"github.com/ebitenui/ebitenui/event"
+	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/colornames"
-	"golang.org/x/image/font/gofont/goregular"
-	"log"
 )
 
 const (
@@ -72,53 +70,35 @@ type game struct {
 
 // Update implements ebiten.Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// Exit the game if the exit flag is set.
-	if g.exit {
-		return ebiten.Termination
-	}
-
-	// Update the UI
-	g.ui.Update()
-
 	return nil
 }
 
+// Update the UI
+
 // Draw implements ebiten.Game.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// Clear the screen with the color teal
-	screen.Fill(colornames.Teal)
-
-	// Draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
+
+// Draw the UI onto the screen
 
 // Layout implements ebiten.Game.
 func (g *game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 type resources struct {
 	font text.Face
 }
 
-func loadResources() (*resources, error) {
-	fnt, err := loadFont(16)
-	if err != nil {
-		return nil, err
-	}
-	return &resources{
-		font: fnt,
-	}, nil
-}
+func loadResources() (*resources, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

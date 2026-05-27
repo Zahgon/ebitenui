@@ -35,25 +35,13 @@ const (
 	DirectionVertical
 )
 
-func NewInsetsSimple(widthHeight int) *Insets {
-	return &Insets{
-		Top:    widthHeight,
-		Left:   widthHeight,
-		Right:  widthHeight,
-		Bottom: widthHeight,
-	}
-}
+func NewInsetsSimple(widthHeight int) *Insets { _ = "STUB: not implemented"; return nil }
 
 func (i Insets) Apply(rect image.Rectangle) image.Rectangle {
-	rect.Min = rect.Min.Add(image.Point{i.Left, i.Top})
-	rect.Max = rect.Max.Sub(image.Point{i.Right, i.Bottom})
-	return rect
+	_ = "STUB: not implemented"
+	return *new(image.Rectangle)
 }
 
-func (i Insets) Dx() int {
-	return i.Left + i.Right
-}
+func (i Insets) Dx() int { _ = "STUB: not implemented"; return 0 }
 
-func (i Insets) Dy() int {
-	return i.Top + i.Bottom
-}
+func (i Insets) Dy() int { _ = "STUB: not implemented"; return 0 }

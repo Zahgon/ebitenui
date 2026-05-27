@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	img "image"
 	"image/color"
@@ -12,7 +11,6 @@ import (
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // Game object used by ebiten
@@ -34,25 +32,14 @@ type dndWidget struct {
 // Inputs:
 //   - parent - The widget that triggered this Drag and drop event
 func (dnd *dndWidget) Create(parent widget.HasWidget) (*widget.Container, interface{}) {
+	_ = "STUB: not implemented"
 	// For this example we do not need to recreate the Dragged element each time. We can re-use it.
-	if dnd.dndObj == nil {
-		// load text font
-		face, _ := loadFont(20)
-		dnd.dndObj = widget.NewContainer(
-			widget.ContainerOpts.Layout(widget.NewAnchorLayout()),
-			widget.ContainerOpts.BackgroundImage(image.NewNineSliceColor(color.NRGBA{0, 200, 100, 255})),
-		)
-
-		dnd.text = widget.NewText(widget.TextOpts.Text("Cannot Drop", &face, color.Black), widget.TextOpts.WidgetOpts(widget.WidgetOpts.LayoutData(widget.AnchorLayoutData{
-			HorizontalPosition: widget.AnchorLayoutPositionCenter,
-			VerticalPosition:   widget.AnchorLayoutPositionCenter,
-		})))
-
-		dnd.dndObj.AddChild(dnd.text)
-	}
-	// return the container to be dragged and any arbitrary data associated with this operation
-	return dnd.dndObj, "Hello World"
+	return nil, nil
 }
+
+// load text font
+
+// return the container to be dragged and any arbitrary data associated with this operation
 
 // This method is optional for Drag and Drop
 // It will be called every draw cycle that the Drag and Drop is active.
@@ -61,19 +48,8 @@ func (dnd *dndWidget) Create(parent widget.HasWidget) (*widget.Container, interf
 //   - targetWidget - The widget that will allow this object to be dropped.
 //   - dragData - The drag data provided by the Create method above.
 func (dnd *dndWidget) Update(canDrop bool, targetWidget widget.HasWidget, dragData interface{}) {
-	if canDrop {
-		dnd.text.Label = "* Can Drop *"
-		if targetWidget != nil {
-			targetWidget.(*widget.Container).SetBackgroundImage(image.NewNineSliceColor(color.NRGBA{100, 100, 255, 255}))
-			dnd.targetedWidget = targetWidget
-		}
-	} else {
-		dnd.text.Label = "Cannot Drop"
-		if dnd.targetedWidget != nil {
-			dnd.targetedWidget.(*widget.Container).SetBackgroundImage(image.NewNineSliceColor(color.NRGBA{100, 100, 100, 255}))
-			dnd.targetedWidget = nil
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // This method is optional for Drag and Drop
@@ -83,11 +59,8 @@ func (dnd *dndWidget) Update(canDrop bool, targetWidget widget.HasWidget, dragDa
 //   - targetWidget - The widget that will allow this object to be dropped.
 //   - dragData - The drag data provided by the Create method above.
 func (dnd *dndWidget) EndDrag(dropped bool, sourceWidget widget.HasWidget, dragData interface{}) {
-	if dropped {
-		fmt.Println("Dropped Successful")
-	} else {
-		fmt.Println("Drop Cancelled")
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func main() {
@@ -228,31 +201,25 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
 	return nil
 }
 
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

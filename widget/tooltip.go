@@ -7,8 +7,6 @@ import (
 	"time"
 
 	e_image "github.com/ebitenui/ebitenui/image"
-	"github.com/ebitenui/ebitenui/input"
-	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
@@ -72,34 +70,9 @@ type ToolTipUpdater func(Containerer)
 
 // Create a new Tooltip. This method allows you to specify
 // every aspect of the displayed tooltip's content.
-func NewToolTip(opts ...ToolTipOpt) *ToolTip {
-	t := &ToolTip{
-		Offset: image.Point{10, 10},
-	}
-	t.state = t.idleState()
-	t.AnchorOriginHorizontal = TOOLTIP_ANCHOR_END
-	t.AnchorOriginVertical = TOOLTIP_ANCHOR_END
-	t.ContentOriginHorizontal = TOOLTIP_ANCHOR_END
-	t.ContentOriginVertical = TOOLTIP_ANCHOR_START
-	for _, o := range opts {
-		o(t)
-	}
+func NewToolTip(opts ...ToolTipOpt) *ToolTip { _ = "STUB: not implemented"; return nil }
 
-	t.Validate()
-
-	t.window = NewWindow(
-		WindowOpts.CloseMode(NONE),
-		WindowOpts.Contents(t.content),
-	)
-
-	return t
-}
-
-func (t *ToolTip) Validate() {
-	if t.content == nil {
-		panic("ToolTip: Contents is required.")
-	}
-}
+func (t *ToolTip) Validate() { _ = "STUB: not implemented"; return }
 
 // Create a new Text Tooltip with the following defaults:
 //   - ProcessBBCode = true
@@ -109,358 +82,104 @@ func (t *ToolTip) Validate() {
 //   - ContentOriginHorizontal = TOOLTIP_ANCHOR_END
 //   - ContentOriginVertical = TOOLTIP_ANCHOR_START
 func NewTextToolTip(label string, face *text.Face, color color.Color, background *e_image.NineSlice) *ToolTip {
-	if color == nil {
-		panic("TextToolTip: color is required.")
-	}
-	if face == nil {
-		panic("TextToolTip: face is required.")
-	}
-
-	c := NewContainer(
-		ContainerOpts.BackgroundImage(background),
-		ContainerOpts.AutoDisableChildren(),
-		ContainerOpts.Layout(NewAnchorLayout(AnchorLayoutOpts.Padding(&Insets{
-			Top:    5,
-			Bottom: 5,
-			Left:   10,
-			Right:  10,
-		}))),
-	)
-
-	c.AddChild(NewText(TextOpts.ProcessBBCode(true), TextOpts.Text(label, face, color)))
-
-	return NewToolTip(
-		ToolTipOpts.Content(c),
-		ToolTipOpts.Delay(800*time.Millisecond),
-		ToolTipOpts.Offset(image.Point{0, 20}),
-		ToolTipOpts.ContentOriginHorizontal(TOOLTIP_ANCHOR_START),
-		ToolTipOpts.ContentOriginVertical(TOOLTIP_ANCHOR_START),
-	)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // The container to be displayed.
 func (o ToolTipOptions) Content(c Containerer) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.content = c
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // The X/Y offsets from the Tooltip anchor point.
 func (o ToolTipOptions) Offset(off image.Point) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.Offset = off
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // The vertical position of the anchor on the widget. Only used when Postion = WIDGET.
 func (o ToolTipOptions) AnchorOriginVertical(anchorOriginVertical ToolTipAnchor) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.AnchorOriginVertical = anchorOriginVertical
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // The horizontal position of the anchor on the widget. Only used when Postion = WIDGET.
 func (o ToolTipOptions) AnchorOriginHorizontal(anchorOriginHorizontal ToolTipAnchor) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.AnchorOriginHorizontal = anchorOriginHorizontal
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // The vertical position of the anchor on the tooltip.
 func (o ToolTipOptions) ContentOriginVertical(contentOriginVertical ToolTipAnchor) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.ContentOriginVertical = contentOriginVertical
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // The horizontal position of the anchor on the tooltip.
 func (o ToolTipOptions) ContentOriginHorizontal(contentOriginHorizontal ToolTipAnchor) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.ContentOriginHorizontal = contentOriginHorizontal
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // Where to display the tooltip.
 func (o ToolTipOptions) Position(position ToolTipPosition) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.Position = position
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // How long to wait before displaying the tooltip.
 func (o ToolTipOptions) Delay(d time.Duration) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.Delay = d
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // A method that is called every draw call that the tooltip is visible.
 // This allows you to hook into the draw loop to update the tooltip if necessary.
 func (o ToolTipOptions) ToolTipUpdater(toolTipUpdater ToolTipUpdater) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.ToolTipUpdater = toolTipUpdater
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
 // KeepOnHover will make it so if the user cursor is on the ToolTip it'll
 // not be hidden as it does by default
 func (o ToolTipOptions) KeepOnHover(b bool) ToolTipOpt {
-	return func(t *ToolTip) {
-		t.KeepOnHover = b
-	}
+	_ = "STUB: not implemented"
+	return *new(ToolTipOpt)
 }
 
-func (t *ToolTip) Update(parent *Widget) {
-	newState := t.state(parent)
-	if newState != nil {
-		t.state = newState
-	}
-}
+func (t *ToolTip) Update(parent *Widget) { _ = "STUB: not implemented"; return }
 
-func (t *ToolTip) idleState() toolTipState {
-	return func(parent *Widget) toolTipState {
-		if input.MouseButtonPressed(ebiten.MouseButtonLeft) ||
-			input.MouseButtonPressed(ebiten.MouseButtonMiddle) ||
-			input.MouseButtonPressed(ebiten.MouseButtonRight) ||
-			!parent.IsVisible() {
-
-			t.visible = false
-			parent.FireToolTipEvent(t.window, false)
-			return nil
-		}
-
-		x, y := input.CursorPosition()
-		p := image.Point{x, y}
-		if !p.In(parent.Rect) {
-			return nil
-		}
-		if !parent.EffectiveInputLayer().ActiveFor(x, y, input.LayerEventTypeAny) {
-			return nil
-		}
-
-		if t.Delay <= 0 {
-			return t.showingState(p)
-		}
-
-		return t.armedState(p, nil, nil)
-	}
-}
+func (t *ToolTip) idleState() toolTipState { _ = "STUB: not implemented"; return *new(toolTipState) }
 
 func (t *ToolTip) armedState(p image.Point, timer *time.Timer, expired *atomic.Value) toolTipState {
-	return func(parent *Widget) toolTipState {
-		x, y := input.CursorPosition()
-		cp := image.Point{x, y}
-
-		if input.MouseButtonPressed(ebiten.MouseButtonLeft) ||
-			input.MouseButtonPressed(ebiten.MouseButtonMiddle) ||
-			input.MouseButtonPressed(ebiten.MouseButtonRight) ||
-			!cp.In(parent.Rect) ||
-			!parent.EffectiveInputLayer().ActiveFor(x, y, input.LayerEventTypeAny) {
-
-			if !(t.KeepOnHover && cp.In(t.content.GetWidget().Rect)) {
-				t.visible = false
-				parent.FireToolTipEvent(t.window, false)
-				return t.idleState()
-			}
-		}
-		if timer != nil {
-			if isExpired, _ := expired.Load().(bool); isExpired {
-				return t.showingState(cp)
-			}
-		}
-
-		if timer == nil {
-			expired = &atomic.Value{}
-			expired.Store(false)
-
-			timer = time.AfterFunc(t.Delay, func() {
-				expired.Store(true)
-			})
-
-			return t.armedState(p, timer, expired)
-		}
-
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return *new(toolTipState)
 }
 
 func (t *ToolTip) showingState(p image.Point) toolTipState {
-	return func(parent *Widget) toolTipState {
-		x, y := input.CursorPosition()
-		cp := image.Point{x, y}
-		if input.MouseButtonPressed(ebiten.MouseButtonLeft) ||
-			input.MouseButtonPressed(ebiten.MouseButtonMiddle) ||
-			input.MouseButtonPressed(ebiten.MouseButtonRight) ||
-			!cp.In(parent.Rect) ||
-			!parent.EffectiveInputLayer().ActiveFor(x, y, input.LayerEventTypeAny) {
-
-			if !(t.KeepOnHover && cp.In(t.content.GetWidget().Rect)) {
-				t.visible = false
-				parent.FireToolTipEvent(t.window, false)
-				return t.idleState()
-			}
-		}
-		sx, sy := t.content.PreferredSize()
-
-		position := p
-		switch t.Position {
-		case TOOLTIP_POS_CURSOR_FOLLOW:
-			position = cp
-		case TOOLTIP_POS_WIDGET:
-			position = t.processWidgetPosition(parent.Rect)
-		case TOOLTIP_POS_ABSOLUTE:
-			position = image.Point{}
-		case TOOLTIP_POS_SCREEN:
-			position = t.processScreenPosition()
-		}
-		position = position.Add(t.Offset)
-		position = t.processContentPosition(position, sx, sy, parent.Rect)
-
-		if t.ToolTipUpdater != nil {
-			t.ToolTipUpdater(t.content)
-		}
-
-		r := image.Rect(0, 0, sx, sy)
-		r = r.Add(position)
-		t.window.SetLocation(r)
-		t.content.SetLocation(r)
-		if !t.visible {
-			parent.FireToolTipEvent(t.window, true)
-			t.visible = true
-		}
-		return t.showingState(p)
-	}
+	_ = "STUB: not implemented"
+	return *new(toolTipState)
 }
 
 func (t *ToolTip) processWidgetPosition(widgetRect image.Rectangle) image.Point {
-	p := image.Point{}
-	switch t.AnchorOriginVertical {
-	case TOOLTIP_ANCHOR_START:
-		switch t.AnchorOriginHorizontal {
-		case TOOLTIP_ANCHOR_START:
-			p.X = widgetRect.Min.X
-			p.Y = widgetRect.Min.Y
-		case TOOLTIP_ANCHOR_MIDDLE:
-			p.X = widgetRect.Min.X + (widgetRect.Dx() / 2)
-			p.Y = widgetRect.Min.Y
-		case TOOLTIP_ANCHOR_END:
-			p.X = widgetRect.Max.X
-			p.Y = widgetRect.Min.Y
-		}
-	case TOOLTIP_ANCHOR_MIDDLE:
-		switch t.AnchorOriginHorizontal {
-		case TOOLTIP_ANCHOR_START:
-			p.X = widgetRect.Min.X
-			p.Y = widgetRect.Min.Y + (widgetRect.Dy() / 2)
-		case TOOLTIP_ANCHOR_MIDDLE:
-			p.X = widgetRect.Min.X + (widgetRect.Dx() / 2)
-			p.Y = widgetRect.Min.Y + (widgetRect.Dy() / 2)
-		case TOOLTIP_ANCHOR_END:
-			p.X = widgetRect.Max.X
-			p.Y = widgetRect.Min.Y + (widgetRect.Dy() / 2)
-		}
-	case TOOLTIP_ANCHOR_END:
-		switch t.AnchorOriginHorizontal {
-		case TOOLTIP_ANCHOR_START:
-			p.X = widgetRect.Min.X
-			p.Y = widgetRect.Max.Y
-		case TOOLTIP_ANCHOR_MIDDLE:
-			p.X = widgetRect.Min.X + (widgetRect.Dx() / 2)
-			p.Y = widgetRect.Max.Y
-		case TOOLTIP_ANCHOR_END:
-			p.X = widgetRect.Max.X
-			p.Y = widgetRect.Max.Y
-		}
-	}
-	return p
+	_ = "STUB: not implemented"
+	return *new(image.Point)
 }
 
 func (t *ToolTip) processScreenPosition() image.Point {
-	windowSize := input.GetWindowSize()
-	p := image.Point{}
-	switch t.AnchorOriginHorizontal {
-	case TOOLTIP_ANCHOR_START:
-		p.X = 0
-	case TOOLTIP_ANCHOR_MIDDLE:
-		p.X = windowSize.X / 2
-	case TOOLTIP_ANCHOR_END:
-		p.X = windowSize.X
-	}
-	switch t.AnchorOriginVertical {
-	case TOOLTIP_ANCHOR_START:
-		p.Y = 0
-	case TOOLTIP_ANCHOR_MIDDLE:
-		p.Y = windowSize.Y / 2
-	case TOOLTIP_ANCHOR_END:
-		p.Y = windowSize.Y
-	}
-	return p
+	_ = "STUB: not implemented"
+	return *new(image.Point)
 }
 
 func (t *ToolTip) processContentPosition(p image.Point, sx, sy int, widgetRect image.Rectangle) image.Point {
-	result := processContentPositionWorker(p, sx, sy, t.ContentOriginHorizontal, t.ContentOriginVertical)
-	windowSize := input.GetWindowSize()
-	horizontalAnchor := t.ContentOriginHorizontal
-	if result.X+sx > windowSize.X {
-		horizontalAnchor = TOOLTIP_ANCHOR_END
-		if t.Position == TOOLTIP_POS_WIDGET {
-			p.X = widgetRect.Min.X
-		}
-		p.X -= 2 * t.Offset.X
-		result = processContentPositionWorker(p, sx, sy, horizontalAnchor, t.ContentOriginVertical)
-	} else if result.X < 0 {
-		p.X -= 2 * t.Offset.X
-		horizontalAnchor = TOOLTIP_ANCHOR_START
-		result = processContentPositionWorker(p, sx, sy, horizontalAnchor, t.ContentOriginVertical)
-	}
-
-	if result.Y+sy > windowSize.Y {
-		if t.Position == TOOLTIP_POS_WIDGET {
-			p.Y = widgetRect.Min.Y
-		}
-		p.Y -= 2 * t.Offset.Y
-		result = processContentPositionWorker(p, sx, sy, horizontalAnchor, TOOLTIP_ANCHOR_END)
-	} else if result.Y < 0 {
-		p.Y -= 2 * t.Offset.Y
-		result = processContentPositionWorker(p, sx, sy, horizontalAnchor, TOOLTIP_ANCHOR_START)
-	}
-
-	return result
+	_ = "STUB: not implemented"
+	return *new(image.Point)
 }
 
 func processContentPositionWorker(p image.Point, sx int, sy int, originHorizontal ToolTipAnchor, originVertical ToolTipAnchor) image.Point {
-	switch originVertical {
-	case TOOLTIP_ANCHOR_START:
-		switch originHorizontal {
-		case TOOLTIP_ANCHOR_START:
-			// Do nothing
-		case TOOLTIP_ANCHOR_MIDDLE:
-			p.X -= (sx / 2)
-		case TOOLTIP_ANCHOR_END:
-			p.X -= sx
-		}
-	case TOOLTIP_ANCHOR_MIDDLE:
-		switch originHorizontal {
-		case TOOLTIP_ANCHOR_START:
-			p.Y -= (sy / 2)
-		case TOOLTIP_ANCHOR_MIDDLE:
-			p.X -= (sx / 2)
-			p.Y -= (sy / 2)
-		case TOOLTIP_ANCHOR_END:
-			p.X -= sx
-			p.Y -= (sy / 2)
-		}
-	case TOOLTIP_ANCHOR_END:
-		switch originHorizontal {
-		case TOOLTIP_ANCHOR_START:
-			p.Y -= sy
-		case TOOLTIP_ANCHOR_MIDDLE:
-			p.X -= (sx / 2)
-			p.Y -= sy
-		case TOOLTIP_ANCHOR_END:
-			p.X -= sx
-			p.Y -= sy
-		}
-	}
-	return p
+	_ = "STUB: not implemented"
+	return *new(image.Point)
 }
+
+// Do nothing

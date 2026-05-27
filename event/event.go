@@ -1,7 +1,5 @@
 package event
 
-import internalevent "github.com/ebitenui/ebitenui/internal/event"
-
 // Event encapsulates an arbitrary event that event handlers may be interested in.
 type Event struct {
 	idCounter uint32
@@ -33,83 +31,30 @@ type deferredAddHandler struct {
 // WrapHandler accepts a function of one argument and converts it into a HandlerFunc.
 // Use this function when passing adding a new handler to an event object, such as
 // button.ClickedEvent.AddHandler(WrapHandler(func (args *widget.ButtonClickedEventArgs){ ... }))
-func WrapHandler[T any](f func(T)) HandlerFunc {
-    return func(args interface{}) {
-        if arg, ok := args.(T); ok {
-            f(arg)
-        }
-    }
-}
+func WrapHandler[T any](f func(T)) HandlerFunc { _ = "STUB: not implemented"; return *new(HandlerFunc) }
 
 // AddHandler registers event handler h with e. It returns a function to remove h from e if desired.
 func (e *Event) AddHandler(h HandlerFunc) RemoveHandlerFunc {
-	e.idCounter++
-
-	id := e.idCounter
-
-	internalevent.AddDeferred(&deferredAddHandler{
-		event: e,
-		handler: handler{
-			id: id,
-			h:  h,
-		},
-	})
-
-	return func() {
-		e.removeHandler(id)
-	}
+	_ = "STUB: not implemented"
+	return *new(RemoveHandlerFunc)
 }
 
-func (e *Event) removeHandler(id uint32) {
-	index := -1
-	for i, h := range e.handlers {
-		if h.id == id {
-			index = i
-			break
-		}
-	}
-
-	if index < 0 {
-		return
-	}
-
-	e.handlers = append(e.handlers[:index], e.handlers[index+1:]...)
-}
+func (e *Event) removeHandler(id uint32) { _ = "STUB: not implemented"; return }
 
 // Fire fires an event to all registered handlers. Arbitrary event arguments may be passed
 // which are in turn passed on to event handlers.
 //
 // Events are not fired directly, but are put into a deferred queue. This queue is then
 // processed by the UI.
-func (e *Event) Fire(args interface{}) {
-	internalevent.AddDeferred(&deferredEvent{
-		event: e,
-		args:  args,
-	})
-}
+func (e *Event) Fire(args interface{}) { _ = "STUB: not implemented"; return }
 
-func (e *Event) handle(args interface{}) {
-	for _, h := range e.handlers {
-		h.h(args)
-	}
-}
+func (e *Event) handle(args interface{}) { _ = "STUB: not implemented"; return }
 
 // Do implements DeferredAction.
-func (e *deferredEvent) Do() {
-	e.event.handle(e.args)
-}
+func (e *deferredEvent) Do() { _ = "STUB: not implemented"; return }
 
 // Do implements DeferredAction.
-func (a *deferredAddHandler) Do() {
-	a.event.handlers = append(a.event.handlers, a.handler)
-}
+func (a *deferredAddHandler) Do() { _ = "STUB: not implemented"; return }
 
 // AddEventHandlerOneShot registers event handler h with e. When e fires an event, h is removed from e immediately.
-func AddEventHandlerOneShot(e *Event, h HandlerFunc) {
-	var r RemoveHandlerFunc
-	rh := func(args interface{}) {
-		r()
-		h(args)
-	}
-	r = e.AddHandler(rh)
-}
+func AddEventHandlerOneShot(e *Event, h HandlerFunc) { _ = "STUB: not implemented"; return }

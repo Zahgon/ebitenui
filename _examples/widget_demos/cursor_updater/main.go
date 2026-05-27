@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"embed"
 	"fmt"
 	"image"
@@ -15,10 +14,7 @@ import (
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
 
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 //go:embed assets
@@ -35,76 +31,47 @@ type cursor_updater struct {
 	cursorImages    map[string]*ebiten.Image
 }
 
-func CreateUpdater() *cursor_updater {
-	cu := cursor_updater{}
-	X, Y := ebiten.CursorPosition()
-	cu.systemPosition = image.Point{X, Y}
-	cu.currentPosition = image.Point{X, Y}
-
-	cu.cursorImages = make(map[string]*ebiten.Image)
-	cu.cursorImages[input.CURSOR_DEFAULT] = loadNormalCursorImage()
-	cu.cursorImages["buttonHover"] = loadHoverCursorImage()
-	cu.cursorImages["buttonPressed"] = loadPressedCursorImage()
-	return &cu
-}
+func CreateUpdater() *cursor_updater { _ = "STUB: not implemented"; return nil }
 
 // Called every Update call from Ebiten
 // Note that before this is called the current cursor shape is reset to DEFAULT every cycle
-func (cu *cursor_updater) Update() {
-	X, Y := ebiten.CursorPosition()
-	diffX := cu.systemPosition.X - X
-	diffY := cu.systemPosition.Y - Y
-	cu.currentPosition.X -= diffX
-	cu.currentPosition.Y -= diffY
+func (cu *cursor_updater) Update() { _ = "STUB: not implemented"; return }
 
-	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
-		cu.currentPosition.X -= 2
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyRight) {
-		cu.currentPosition.X += 2
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyUp) {
-		cu.currentPosition.Y -= 2
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyDown) {
-		cu.currentPosition.Y += 2
-	}
+func (cu *cursor_updater) AfterUpdate() { _ = "STUB: not implemented"; return }
 
-	cu.systemPosition = image.Point{X, Y}
+func (cu *cursor_updater) Draw(screen *ebiten.Image) { _ = "STUB: not implemented"; return }
 
-}
-
-func (cu *cursor_updater) AfterUpdate() {
-}
-func (cu *cursor_updater) Draw(screen *ebiten.Image) {
-}
 func (cu *cursor_updater) AfterDraw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
+
+	// MouseButtonPressed returns whether mouse button b is currently pressed.
+	return
 }
 
-// MouseButtonPressed returns whether mouse button b is currently pressed.
 func (cu *cursor_updater) MouseButtonPressed(b ebiten.MouseButton) bool {
-	return ebiten.IsMouseButtonPressed(b) || ebiten.IsKeyPressed(ebiten.KeySpace)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // MouseButtonJustPressed returns whether mouse button b has just been pressed.
 // It only returns true during the first frame that the button is pressed.
 func (cu *cursor_updater) MouseButtonJustPressed(b ebiten.MouseButton) bool {
-	return inpututil.IsMouseButtonJustPressed(b) || inpututil.IsKeyJustPressed(ebiten.KeySpace)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // MouseButtonJustPressed returns whether mouse button b has just been pressed.
 // It only returns true during the first frame that the button is pressed.
 func (cu *cursor_updater) MouseButtonJustReleased(b ebiten.MouseButton) bool {
-	return inpututil.IsMouseButtonJustReleased(b)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // CursorPosition returns the current cursor position.
 // If you define a CursorPosition that doesn't align with a system cursor you will need to
 // set the CursorDrawMode to Custom. This is because ebiten doesn't have a way to set the
 // cursor location manually
-func (cu *cursor_updater) CursorPosition() (int, int) {
-	return cu.currentPosition.X, cu.currentPosition.Y
-}
+func (cu *cursor_updater) CursorPosition() (int, int) { _ = "STUB: not implemented"; return 0, 0 }
 
 // Returns the image to use as the cursor
 // EbitenUI by default will look for the following cursors:
@@ -113,13 +80,15 @@ func (cu *cursor_updater) CursorPosition() (int, int) {
 //	"NSResize"
 //	"Default"
 func (cu *cursor_updater) GetCursorImage(name string) *ebiten.Image {
-	return cu.cursorImages[name]
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Returns how far from the CursorPosition to offset the cursor image.
 // This is best used with cursors such as resizing.
 func (cu *cursor_updater) GetCursorOffset(name string) image.Point {
-	return image.Point{}
+	_ = "STUB: not implemented"
+	return *new(image.Point)
 }
 
 func main() {
@@ -255,75 +224,33 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
 	return nil
 }
 
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
-func loadButtonImage() (*widget.ButtonImage, error) {
-	idle := e_image.NewNineSliceColor(color.NRGBA{R: 170, G: 170, B: 180, A: 255})
-
-	hover := e_image.NewNineSliceColor(color.NRGBA{R: 130, G: 130, B: 150, A: 255})
-
-	pressed := e_image.NewNineSliceColor(color.NRGBA{R: 100, G: 100, B: 120, A: 255})
-
-	return &widget.ButtonImage{
-		Idle:    idle,
-		Hover:   hover,
-		Pressed: pressed,
-	}, nil
-}
+func loadButtonImage() (*widget.ButtonImage, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }
 
-func loadNormalCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(0, 0, 16, 16)))
-}
+func loadNormalCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }
 
-func loadHoverCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(16, 0, 32, 16)))
-}
+func loadHoverCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }
 
-func loadPressedCursorImage() *ebiten.Image {
-	f, err := embeddedAssets.Open("assets/cursor.png")
-	if err != nil {
-		return nil
-	}
-	defer f.Close()
-	i, _, _ := ebitenutil.NewImageFromReader(f)
-	return ebiten.NewImageFromImage(i.SubImage(image.Rect(32, 0, 48, 16)))
-}
+func loadPressedCursorImage() *ebiten.Image { _ = "STUB: not implemented"; return nil }

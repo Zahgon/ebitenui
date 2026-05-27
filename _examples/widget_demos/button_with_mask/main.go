@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"image/color"
 	"log"
 
@@ -9,10 +8,7 @@ import (
 	"github.com/ebitenui/ebitenui/image"
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"github.com/hajimehoshi/ebiten/v2/vector"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // Game object used by ebiten
@@ -111,62 +107,29 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
-	if inpututil.IsKeyJustPressed(ebiten.KeyB) {
-		g.btn.Click()
-	}
-
-	//Test that you can call Click on the focused widget.
-	if inpututil.IsKeyJustPressed(ebiten.KeyF) {
-		if btn, ok := g.ui.GetFocusedWidget().(*widget.Button); ok {
-			btn.Click()
-		}
-	}
-
 	return nil
 }
 
+//Test that you can call Click on the focused widget.
+
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
-func loadButtonImage() (*widget.ButtonImage, error) {
-	idleImage := ebiten.NewImage(100, 100)
-	vector.DrawFilledCircle(idleImage, float32(idleImage.Bounds().Dx())/2, float32(idleImage.Bounds().Dy())/2, 45, color.Black, true)
-	idle := image.NewNineSlice(idleImage, [3]int{0, idleImage.Bounds().Dx(), 0}, [3]int{0, idleImage.Bounds().Dy(), 0})
-
-	hoverImage := ebiten.NewImage(100, 100)
-	vector.DrawFilledCircle(hoverImage, float32(hoverImage.Bounds().Dx())/2, float32(hoverImage.Bounds().Dy())/2, 45, color.White, true)
-	hover := image.NewNineSlice(hoverImage, [3]int{0, hoverImage.Bounds().Dx(), 0}, [3]int{0, hoverImage.Bounds().Dy(), 0})
-
-	pressedImage := ebiten.NewImage(100, 100)
-	vector.DrawFilledCircle(pressedImage, float32(pressedImage.Bounds().Dx())/2, float32(pressedImage.Bounds().Dy())/2, 45, color.NRGBA{R: 255, G: 0, B: 0, A: 255}, true)
-	pressed := image.NewNineSlice(pressedImage, [3]int{0, pressedImage.Bounds().Dx(), 0}, [3]int{0, pressedImage.Bounds().Dy(), 0})
-
-	return &widget.ButtonImage{
-		Idle:    idle,
-		Hover:   hover,
-		Pressed: pressed,
-	}, nil
-}
+func loadButtonImage() (*widget.ButtonImage, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

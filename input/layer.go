@@ -84,88 +84,27 @@ var deferredSetupInputLayers []SetupInputLayerFunc
 // AddLayer adds l at the top of the layer stack.
 //
 // Layers are only valid for the duration of a frame. Layers are removed automatically for the next frame.
-func AddLayer(l *Layer) {
-	if !l.Valid() {
-		panic("invalid layer")
-	}
-
-	if l.EventTypes == LayerEventTypeAny {
-		panic("LayerEventTypeAny is invalid for an input layer, perhaps you meant to use LayerEventTypeAll instead")
-	}
-
-	layers = append(layers, l)
-}
+func AddLayer(l *Layer) { _ = "STUB: not implemented"; return }
 
 // Valid returns whether l is still valid, that is, it has not been added to the layer stack in previous frames.
 func (l *Layer) Valid() bool {
-	return !l.invalid
+	_ = "STUB: not implemented"
+
+	// ActiveFor returns whether l is eligible for an event of type eventType, according to l.EventTypes. It returns
+	// false if l is not a fullscreen layer and does not contain the position x,y.
+	return false
 }
 
-// ActiveFor returns whether l is eligible for an event of type eventType, according to l.EventTypes. It returns
-// false if l is not a fullscreen layer and does not contain the position x,y.
 func (l *Layer) ActiveFor(x int, y int, eventType LayerEventType) bool {
-	if !l.Valid() {
-		return false
-	}
-
-	for i := len(layers) - 1; i >= 0; i-- {
-		layer := layers[i]
-
-		if !layer.contains(x, y) {
-			continue
-		}
-
-		if eventType != LayerEventTypeAny && layer.EventTypes&eventType != eventType {
-			continue
-		}
-
-		if layer != l {
-			if layer.BlockLower {
-				return false
-			}
-			continue
-		}
-
-		return true
-	}
-
-	return l == &DefaultLayer
+	_ = "STUB: not implemented"
+	return false
 }
 
-func (l *Layer) contains(x int, y int) bool {
-	if l.FullScreen {
-		return true
-	}
-	return image.Point{x, y}.In(l.RectFunc())
-}
+func (l *Layer) contains(x int, y int) bool { _ = "STUB: not implemented"; return false }
 
 // SetupInputLayersWithDeferred calls ls to set up input layers. This function is called by the UI.
-func SetupInputLayersWithDeferred(ls []Layerer) {
-	for _, layer := range layers {
-		layer.invalid = true
-	}
-	layers = layers[:0]
+func SetupInputLayersWithDeferred(ls []Layerer) { _ = "STUB: not implemented"; return }
 
-	for _, l := range ls {
-		appendToDeferredSetupInputLayerQueue(l.SetupInputLayer)
-	}
+func setupDeferredInputLayers() { _ = "STUB: not implemented"; return }
 
-	setupDeferredInputLayers()
-}
-
-func setupDeferredInputLayers() {
-	defer func(d []SetupInputLayerFunc) {
-		deferredSetupInputLayers = d[:0]
-	}(deferredSetupInputLayers)
-
-	for len(deferredSetupInputLayers) > 0 {
-		s := deferredSetupInputLayers[0]
-		deferredSetupInputLayers = deferredSetupInputLayers[1:]
-
-		s(appendToDeferredSetupInputLayerQueue)
-	}
-}
-
-func appendToDeferredSetupInputLayerQueue(s SetupInputLayerFunc) {
-	deferredSetupInputLayers = append(deferredSetupInputLayers, s)
-}
+func appendToDeferredSetupInputLayerQueue(s SetupInputLayerFunc) { _ = "STUB: not implemented"; return }

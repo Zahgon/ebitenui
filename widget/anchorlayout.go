@@ -55,100 +55,31 @@ const (
 var AnchorLayoutOpts AnchorLayoutOptions
 
 // NewAnchorLayout constructs a new AnchorLayout, configured by opts.
-func NewAnchorLayout(opts ...AnchorLayoutOpt) *AnchorLayout {
-	a := &AnchorLayout{}
-
-	for _, o := range opts {
-		o(a)
-	}
-
-	if a.padding == nil {
-		a.padding = &Insets{}
-	}
-
-	return a
-}
+func NewAnchorLayout(opts ...AnchorLayoutOpt) *AnchorLayout { _ = "STUB: not implemented"; return nil }
 
 // Padding configures an anchor layout to use padding i. This affects all children.
 func (o AnchorLayoutOptions) Padding(i *Insets) AnchorLayoutOpt {
-	return func(a *AnchorLayout) {
-		a.padding = i
-	}
+	_ = "STUB: not implemented"
+	return *new(AnchorLayoutOpt)
 }
 
 // PreferredSize implements Layouter.
 func (a *AnchorLayout) PreferredSize(widgets []PreferredSizeLocateableWidget) (int, int) {
-	px, py := a.padding.Dx(), a.padding.Dy()
-
-	if len(widgets) == 0 {
-		return px, py
-	}
-
-	w, h := widgets[0].PreferredSize()
-	return w + px, h + py
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Layout implements Layouter.
 func (a *AnchorLayout) Layout(widgets []PreferredSizeLocateableWidget, rect image.Rectangle) {
-	if len(widgets) == 0 {
-		return
-	}
-	for idx := range widgets {
-		widget := widgets[idx]
-		if widget.GetWidget().GetVisibility() == Visibility_Hide {
-			continue
-		}
-
-		ww, wh := widget.PreferredSize()
-		wrect := a.padding.Apply(rect)
-		wx := 0
-		wy := 0
-
-		if ald, ok := widget.GetWidget().LayoutData.(AnchorLayoutData); ok {
-			if ald.Padding != nil {
-				wrect = ald.Padding.Apply(wrect)
-			}
-			wx, wy, ww, wh = a.applyLayoutData(ald, wx, wy, ww, wh, wrect)
-		}
-
-		r := image.Rect(0, 0, ww, wh)
-		r = r.Add(image.Point{wx, wy})
-		r = r.Add(wrect.Min)
-
-		widget.SetLocation(r)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (a *AnchorLayout) applyLayoutData(ld AnchorLayoutData, wx int, wy int, ww int, wh int, rect image.Rectangle) (int, int, int, int) {
-
-	if ld.StretchHorizontal {
-		ww = rect.Dx()
-	}
-
-	if ld.StretchVertical {
-		wh = rect.Dy()
-	}
-
-	hPos := ld.HorizontalPosition
-	vPos := ld.VerticalPosition
-
-	switch hPos {
-	case AnchorLayoutPositionCenter:
-		wx = (rect.Dx() - ww) / 2
-	case AnchorLayoutPositionEnd:
-		wx = rect.Dx() - ww
-	case AnchorLayoutPositionStart:
-		// Do nothing
-	}
-
-	switch vPos {
-	case AnchorLayoutPositionCenter:
-		wy = (rect.Dy() - wh) / 2
-	case AnchorLayoutPositionEnd:
-		wy = rect.Dy() - wh
-	case AnchorLayoutPositionStart:
-		// Do nothing
-	}
-
-	return wx, wy, ww, wh
+	_ = "STUB: not implemented"
+	return 0, 0, 0, 0
 }
+
+// Do nothing
+
+// Do nothing

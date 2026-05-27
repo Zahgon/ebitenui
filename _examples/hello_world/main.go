@@ -60,17 +60,19 @@ func main() {
 }
 
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// ui.Update() must be called in ebiten Update function, to handle user input and other things
-	g.ui.Update()
 	return nil
 }
 
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// ui.Draw() should be called in the ebiten Draw function, to draw the UI onto the screen.
 	// It should also be called after all other rendering for your game so that it shows up on top of your game world.
-	g.ui.Draw(screen)
+	return
 }
 
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }

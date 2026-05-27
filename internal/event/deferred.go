@@ -9,20 +9,7 @@ type DeferredAction interface {
 var deferredActions []DeferredAction
 
 // AddDeferred adds d to the queue of deferred actions.
-func AddDeferred(d DeferredAction) {
-	deferredActions = append(deferredActions, d)
-}
+func AddDeferred(d DeferredAction) { _ = "STUB: not implemented"; return }
 
 // ExecuteDeferred processes the queue of deferred actions and executes them.
-func ExecuteDeferred() {
-	defer func(d []DeferredAction) {
-		deferredActions = d[:0]
-	}(deferredActions)
-
-	for len(deferredActions) > 0 {
-		a := deferredActions[0]
-		deferredActions = deferredActions[1:]
-
-		a.Do()
-	}
-}
+func ExecuteDeferred() { _ = "STUB: not implemented"; return }

@@ -29,56 +29,24 @@ var StackedLayoutOpts StackedLayoutOptions
 
 // NewStackedLayout constructs a new StackedLayout, configured by opts.
 func NewStackedLayout(opts ...StackedLayoutOpt) *StackedLayout {
-	a := &StackedLayout{}
-
-	for _, o := range opts {
-		o(a)
-	}
-
-	if a.padding == nil {
-		a.padding = &Insets{}
-	}
-	return a
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Padding configures an Stacked layout to use padding i.
 func (o StackedLayoutOptions) Padding(i *Insets) StackedLayoutOpt {
-	return func(a *StackedLayout) {
-		a.padding = i
-	}
+	_ = "STUB: not implemented"
+	return *new(StackedLayoutOpt)
 }
 
 // PreferredSize implements Layouter.
 func (a *StackedLayout) PreferredSize(widgets []PreferredSizeLocateableWidget) (int, int) {
-	px, py := a.padding.Dx(), a.padding.Dy()
-
-	if len(widgets) == 0 {
-		return px, py
-	}
-	var w, h int
-	for idx, widget := range widgets {
-		if widget.GetWidget().GetVisibility() == Visibility_Hide {
-			continue
-		}
-
-		w1, h1 := widgets[idx].PreferredSize()
-		if w1 > w {
-			w = w1
-		}
-		if h1 > h {
-			h = h1
-		}
-	}
-	return w + px, h + py
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Layout implements Layouter.
 func (a *StackedLayout) Layout(widgets []PreferredSizeLocateableWidget, rect image.Rectangle) {
-	if len(widgets) == 0 {
-		return
-	}
-	rect = a.padding.Apply(rect)
-	for idx := range widgets {
-		widgets[idx].SetLocation(rect)
-	}
+	_ = "STUB: not implemented"
+	return
 }

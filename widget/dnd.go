@@ -2,11 +2,8 @@ package widget
 
 import (
 	"image"
-	"math"
 
-	"github.com/ebitenui/ebitenui/event"
 	"github.com/ebitenui/ebitenui/input"
-	"github.com/hajimehoshi/ebiten/v2"
 )
 
 type DragAndDropAnchor int
@@ -63,68 +60,43 @@ type DragContentsEnder interface {
 
 type dragAndDropState func(HasWidget) (dragAndDropState, bool)
 
-func NewDragAndDrop(opts ...DragAndDropOpt) *DragAndDrop {
-	d := &DragAndDrop{
-		minDragStartDistance:     15,
-		ContentsOriginVertical:   DND_ANCHOR_MIDDLE,
-		ContentsOriginHorizontal: DND_ANCHOR_MIDDLE,
-		Offset:                   image.Point{0, 0},
-	}
-	d.state = d.idleState()
+func NewDragAndDrop(opts ...DragAndDropOpt) *DragAndDrop { _ = "STUB: not implemented"; return nil }
 
-	for _, o := range opts {
-		o(d)
-	}
-
-	d.Validate()
-
-	return d
-}
-
-func (d *DragAndDrop) Validate() {
-	if d.contentsCreater == nil {
-		panic("DragAndDrop: ContentsCreater is required.")
-	}
-}
+func (d *DragAndDrop) Validate() { _ = "STUB: not implemented"; return }
 
 func (o DragAndDropOptions) ContentsCreater(c DragContentsCreater) DragAndDropOpt {
-	return func(d *DragAndDrop) {
-		d.contentsCreater = c
-	}
+	_ = "STUB: not implemented"
+	return *new(DragAndDropOpt)
 }
 
 // The minimum distance in pixels a user must drag their cursor to display the dragged element.
 //
 //	Optional - Defaults to 15 pixels
 func (o DragAndDropOptions) MinDragStartDistance(d int) DragAndDropOpt {
-	return func(dnd *DragAndDrop) {
-		dnd.minDragStartDistance = d
-	}
+	_ = "STUB: not implemented"
+	return *new(DragAndDropOpt)
 }
 
 // The vertical position of the anchor on the tooltip.
 //
 //	Optional - Defaults to DND_ANCHOR_MIDDLE
 func (o DragAndDropOptions) ContentsOriginVertical(contentsOriginVertical DragAndDropAnchor) DragAndDropOpt {
-	return func(t *DragAndDrop) {
-		t.ContentsOriginVertical = contentsOriginVertical
-	}
+	_ = "STUB: not implemented"
+	return *new(DragAndDropOpt)
 }
 
 // The horizontal position of the anchor on the tooltip.
 //
 //	Optional - Defaults to DND_ANCHOR_MIDDLE
 func (o DragAndDropOptions) ContentsOriginHorizontal(contentsOriginHorizontal DragAndDropAnchor) DragAndDropOpt {
-	return func(t *DragAndDrop) {
-		t.ContentsOriginHorizontal = contentsOriginHorizontal
-	}
+	_ = "STUB: not implemented"
+	return *new(DragAndDropOpt)
 }
 
 // The X/Y offsets from the Tooltip anchor point.
 func (o DragAndDropOptions) Offset(off image.Point) DragAndDropOpt {
-	return func(t *DragAndDrop) {
-		t.Offset = off
-	}
+	_ = "STUB: not implemented"
+	return *new(DragAndDropOpt)
 }
 
 // Disable Drag to start Drag and Drop.
@@ -133,247 +105,45 @@ func (o DragAndDropOptions) Offset(off image.Point) DragAndDropOpt {
 //
 //	Expected use-case: click to pick up, click to drop.
 func (o DragAndDropOptions) DisableDrag() DragAndDropOpt {
-	return func(t *DragAndDrop) {
-		t.dragDisabled = true
-	}
+	_ = "STUB: not implemented"
+	return *new(DragAndDropOpt)
 }
 
 // To avoid conflicting with dragging, if you trigger it on left click you should put the trigger in the button released event.
-func (d *DragAndDrop) StartDrag() {
-	d.dndTriggered = true
-}
+func (d *DragAndDrop) StartDrag() { _ = "STUB: not implemented"; return }
 
-func (d *DragAndDrop) StopDrag() {
-	d.dndStopped = true
-}
+func (d *DragAndDrop) StopDrag() { _ = "STUB: not implemented"; return }
 
 func (d *DragAndDrop) SetupInputLayer(def input.DeferredSetupInputLayerFunc) {
-	if d.dragWidget != nil {
-		d.dragWidget.GetWidget().ElevateToNewInputLayer(&input.Layer{
-			DebugLabel: "drag widget",
-			EventTypes: input.LayerEventTypeAll,
-			BlockLower: true,
-			FullScreen: true,
-		})
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (d *DragAndDrop) Update(parent HasWidget) {
-	newState, _ := d.state(parent)
-	if newState != nil {
-		d.state = newState
-	}
-}
+func (d *DragAndDrop) Update(parent HasWidget) { _ = "STUB: not implemented"; return }
 
 func (d *DragAndDrop) idleState() dragAndDropState {
-	return func(parent HasWidget) (dragAndDropState, bool) {
-		d.dragWidget = nil
-		if (!input.MouseButtonJustPressed(ebiten.MouseButtonLeft) && !d.dndTriggered) || d.dndStopped {
-			d.dndStopped = false
-			if d.window != nil {
-				parent.GetWidget().FireDragAndDropEvent(d.window, false, d)
-				d.window = nil
-			}
-			return nil, false
-		}
-
-		x, y := input.CursorPosition()
-		if !parent.GetWidget().In(x, y) && !d.dndTriggered {
-			return nil, false
-		}
-		if !parent.GetWidget().EffectiveInputLayer().ActiveFor(x, y, input.LayerEventTypeAny) {
-			return nil, false
-		}
-
-		return d.dragArmedState(x, y), true
-	}
+	_ = "STUB: not implemented"
+	return *new(dragAndDropState)
 }
 
 func (d *DragAndDrop) dragArmedState(srcX int, srcY int) dragAndDropState {
-	return func(_ HasWidget) (dragAndDropState, bool) {
-		if !input.MouseButtonPressed(ebiten.MouseButtonLeft) && !d.dndTriggered {
-			return d.idleState(), false
-		}
-		if !d.dndTriggered {
-			x, y := input.CursorPosition()
-			dx, dy := math.Abs(float64(x-srcX)), math.Abs(float64(y-srcY))
-			dist := math.Sqrt(dx*dx + dy*dy)
-			if dist < float64(d.minDragStartDistance) || d.dragDisabled {
-				return nil, false
-			}
-		}
-		return d.draggingState(srcX, srcY, nil, nil, !d.dndTriggered), true
-	}
+	_ = "STUB: not implemented"
+	return *new(dragAndDropState)
 }
 
 func (d *DragAndDrop) draggingState(srcX int, srcY int, dragWidget *Container, dragData interface{}, mousePressed bool) dragAndDropState {
-	return func(parent HasWidget) (dragAndDropState, bool) {
-		x, y := input.CursorPosition()
-
-		d.dndTriggered = false
-
-		if input.MouseButtonPressed(ebiten.MouseButtonLeft) != mousePressed {
-			return d.droppingState(srcX, srcY, x, y, dragData), true
-		}
-
-		if dragWidget == nil {
-			dragWidget, dragData = d.contentsCreater.Create(parent)
-			if dragWidget == nil {
-				return d.idleState(), false
-			}
-			d.window = NewWindow(
-				WindowOpts.CloseMode(NONE),
-				WindowOpts.Contents(dragWidget),
-				WindowOpts.BlockLower(false),
-			)
-			parent.GetWidget().FireDragAndDropEvent(d.window, true, d)
-		}
-
-		defer func() {
-			d.dragWidget = dragWidget
-		}()
-
-		if u, ok := d.contentsCreater.(DragContentsUpdater); ok {
-			droppable := false
-			var element HasWidget
-
-			if !input.KeyPressed(ebiten.KeyEscape) && !d.dndStopped {
-				args := &DragAndDropDroppedEventArgs{
-					Source:  parent,
-					SourceX: srcX,
-					SourceY: srcY,
-					TargetX: x,
-					TargetY: y,
-					Data:    dragData,
-				}
-				for _, target := range d.AvailableDropTargets {
-					if target.GetWidget().GetVisibility() == Visibility_Hide {
-						continue
-					}
-					if !target.GetWidget().In(x, y) {
-						continue
-					}
-					if !target.GetWidget().EffectiveInputLayer().ActiveFor(x, y, input.LayerEventTypeAny) {
-						continue
-					}
-					if target.GetWidget().canDrop(args) {
-						droppable = true
-						element = target
-						break
-					}
-				}
-			}
-			u.Update(droppable, element, dragData)
-		}
-
-		if input.KeyPressed(ebiten.KeyEscape) || d.dndStopped {
-			if dce, ok := d.contentsCreater.(DragContentsEnder); ok {
-				e := &event.Event{}
-				event.AddEventHandlerOneShot(e, func(_ interface{}) {
-					dce.EndDrag(false, parent, dragData)
-				})
-				e.Fire(nil)
-			}
-
-			return d.idleState(), false
-		}
-
-		sx, sy := dragWidget.PreferredSize()
-		r := image.Rect(0, 0, sx, sy)
-		r = r.Add(d.processContentsPosition(image.Point{x, y}, sx, sy))
-		r = r.Add(d.Offset)
-		d.window.SetLocation(r)
-		dragWidget.SetLocation(r)
-
-		return d.draggingState(srcX, srcY, dragWidget, dragData, mousePressed), false
-	}
+	_ = "STUB: not implemented"
+	return *new(dragAndDropState)
 }
 
 func (d *DragAndDrop) droppingState(srcX int, srcY int, x int, y int, dragData interface{}) dragAndDropState {
-	return func(parent HasWidget) (dragAndDropState, bool) {
-		args := &DragAndDropDroppedEventArgs{
-			Source:  parent,
-			SourceX: srcX,
-			SourceY: srcY,
-			TargetX: x,
-			TargetY: y,
-			Data:    dragData,
-		}
-		dropSuccessful := false
-		for _, target := range d.AvailableDropTargets {
-			if target.GetWidget().GetVisibility() == Visibility_Hide {
-				continue
-			}
-			if !target.GetWidget().In(x, y) {
-				continue
-			}
-			if !target.GetWidget().EffectiveInputLayer().ActiveFor(x, y, input.LayerEventTypeAny) {
-				continue
-			}
-			if target.GetWidget().canDrop(args) {
-				if target.GetWidget().drop != nil {
-					args.Target = target
-					e := &event.Event{}
-					event.AddEventHandlerOneShot(e, func(_ interface{}) {
-						target.GetWidget().drop(args)
-					})
-					e.Fire(nil)
-					dropSuccessful = true
-				}
-				break
-			}
-		}
-
-		if dce, ok := d.contentsCreater.(DragContentsEnder); ok {
-			e := &event.Event{}
-			event.AddEventHandlerOneShot(e, func(_ interface{}) {
-				dce.EndDrag(dropSuccessful, parent, dragData)
-			})
-			e.Fire(nil)
-		}
-
-		d.dndStopped = false
-		if d.window != nil {
-			parent.GetWidget().FireDragAndDropEvent(d.window, false, d)
-			d.window = nil
-		}
-
-		return d.idleState(), false
-	}
+	_ = "STUB: not implemented"
+	return *new(dragAndDropState)
 }
+
 func (d *DragAndDrop) processContentsPosition(p image.Point, sx int, sy int) image.Point {
-	switch d.ContentsOriginVertical {
-	case DND_ANCHOR_START:
-		switch d.ContentsOriginHorizontal {
-		case DND_ANCHOR_START:
-			// Do nothing
-		case DND_ANCHOR_MIDDLE:
-			p.X -= (sx / 2)
-		case DND_ANCHOR_END:
-			p.X -= sx
-		}
-	case DND_ANCHOR_MIDDLE:
-		switch d.ContentsOriginHorizontal {
-		case DND_ANCHOR_START:
-			p.Y -= (sy / 2)
-		case DND_ANCHOR_MIDDLE:
-			p.X -= (sx / 2)
-			p.Y -= (sy / 2)
-		case DND_ANCHOR_END:
-			p.X -= sx
-			p.Y -= (sy / 2)
-		}
-	case DND_ANCHOR_END:
-		switch d.ContentsOriginHorizontal {
-		case DND_ANCHOR_START:
-			p.Y -= sy
-		case DND_ANCHOR_MIDDLE:
-			p.X -= (sx / 2)
-			p.Y -= sy
-		case DND_ANCHOR_END:
-			p.X -= sx
-			p.Y -= sy
-		}
-	}
-	return p
+	_ = "STUB: not implemented"
+	return *new(image.Point)
 }
+
+// Do nothing

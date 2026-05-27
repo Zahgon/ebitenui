@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"image/color"
 	"log"
 
@@ -9,9 +8,7 @@ import (
 	"github.com/ebitenui/ebitenui/image"
 	"github.com/ebitenui/ebitenui/widget"
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	"golang.org/x/image/font/gofont/goregular"
 )
 
 // Like button example, but use image instead of text for the label.
@@ -124,58 +121,41 @@ func main() {
 
 // Layout implements Game.
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
 // Update implements Game.
 func (g *game) Update() error {
+	_ = "STUB: not implemented"
 	// update the UI
-	g.ui.Update()
 	return nil
 }
 
 // Draw implements Ebiten's Draw method.
 func (g *game) Draw(screen *ebiten.Image) {
+	_ = "STUB: not implemented"
 	// draw the UI onto the screen
-	g.ui.Draw(screen)
+	return
 }
 
 func loadButtonIcon() *ebiten.Image {
+	_ = "STUB: not implemented"
 	// we'll use a circle as an icon image
 	// in reality it could be an arbitrary *ebiten.Image
-	icon := ebiten.NewImage(32, 32)
-	ebitenutil.DrawCircle(icon, 16, 16, 16, color.RGBA{R: 0x71, G: 0x56, B: 0xbd, A: 255})
-	return icon
+	return nil
 }
 
 func loadDisabledButtonIcon() *ebiten.Image {
+	_ = "STUB: not implemented"
 	// we'll use a circle as an icon image
 	// in reality it could be an arbitrary *ebiten.Image
-	icon := ebiten.NewImage(32, 32)
-	ebitenutil.DrawCircle(icon, 16, 16, 16, color.RGBA{R: 250, G: 0x56, B: 0xbd, A: 255})
-	return icon
+	return nil
 }
 
-func loadButtonImage() *widget.ButtonImage {
-	idle := image.NewNineSliceColor(color.RGBA{R: 170, G: 170, B: 180, A: 255})
-	hover := image.NewNineSliceColor(color.RGBA{R: 130, G: 130, B: 150, A: 255})
-	pressed := image.NewNineSliceColor(color.RGBA{R: 100, G: 100, B: 120, A: 255})
+func loadButtonImage() *widget.ButtonImage { _ = "STUB: not implemented"; return nil }
 
-	return &widget.ButtonImage{
-		Idle:    idle,
-		Hover:   hover,
-		Pressed: pressed,
-	}
-}
 func loadFont(size float64) (text.Face, error) {
-	s, err := text.NewGoTextFaceSource(bytes.NewReader(goregular.TTF))
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return &text.GoTextFace{
-		Source: s,
-		Size:   size,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(text.Face), nil
 }

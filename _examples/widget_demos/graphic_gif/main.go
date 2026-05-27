@@ -52,14 +52,10 @@ func main() {
 }
 
 func (g *game) Layout(outsideWidth int, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	_ = "STUB: not implemented"
+	return 0, 0
 }
 
-func (g *game) Update() error {
-	g.ui.Update()
-	return nil
-}
+func (g *game) Update() error { _ = "STUB: not implemented"; return nil }
 
-func (g *game) Draw(screen *ebiten.Image) {
-	g.ui.Draw(screen)
-}
+func (g *game) Draw(screen *ebiten.Image) { _ = "STUB: not implemented"; return }
